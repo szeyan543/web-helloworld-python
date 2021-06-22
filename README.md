@@ -1,4 +1,5 @@
-# web-hello-python
+# web-helloworld-python
+
 Extremely simple HTTP server (written in Python) that responds on port 8000 with a hello message.
 
 Begin by editing the variables at the top of the Makefile as desired. If you plan to push it to a Docker registery, make sure you give your docker ID. You may also want to create unique names for your **service** and **pattern** (necessary if you are sharing a tenancy with other users and you are all publishing this service).
