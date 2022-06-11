@@ -22,7 +22,7 @@ hzn key create **yourcompany** **youremail**
 make build
 make push
 make publish-service
-make publish-patterrn
+make publish-pattern
 ```
 
 Once it is published, you can get the agent to deploy it:
