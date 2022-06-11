@@ -55,7 +55,7 @@ clean:
 	@docker rmi -f $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) >/dev/null 2>&1 || :
 
 agent-run:
-	hzn register -v --pattern "${HZN_ORG_ID}/$(PATTERN_NAME)"
+	hzn register --pattern "${HZN_ORG_ID}/$(PATTERN_NAME)"
 
 agent-stop:
 	hzn unregister -f
