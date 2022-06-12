@@ -8,7 +8,7 @@ webapp = Flask('hello')
 
 template="""
 <!DOCTYPE html>\r\n
-<html>\r\n<head>\r\n
+<html lang="en">\r\n<head>\r\n
 <meta charset=\"utf-8\">\r\n
 <title>WebHello</title>\r\n
 </head>\r\n<body>\r\nHello, \"{addr}\".\r\n</body>\r\n</html>\r\n
