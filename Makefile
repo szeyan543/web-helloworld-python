@@ -54,10 +54,10 @@ stop:
 clean:
 	@docker rmi -f $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) >/dev/null 2>&1 || :
 
-agent-run:
-	hzn register --pattern "${HZN_ORG_ID}/$(PATTERN_NAME)"
+agent-run: agent-stop
+	@hzn register --pattern "${HZN_ORG_ID}/$(PATTERN_NAME)"
 
 agent-stop:
-	hzn unregister -f
+	@hzn unregister -f
 
 .PHONY: build dev run push publish-service publish-pattern test stop clean agent-run agent-stop
