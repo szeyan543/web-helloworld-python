@@ -15,6 +15,26 @@ default: build run
 build:
 	docker build -t $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) .
 
+check-syft:
+	@echo "=================="
+	@echo "Generating SBoM syft-output file..."
+	@echo "=================="
+	syft $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) > syft-output
+	cat syft-output
+
+check-grype:
+	grype $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) > grype-output
+	cat grype-output
+
+sbom-policy-gen:
+	@echo "=================="
+	@echo "Generating service.policy.json file..."
+	@echo "=================="
+	./sbom-property-gen.sh
+
+publish-service-policy:
+	hzn exchange service addpolicy -f service.policy.json $(HZN_ORG_ID)/$(SERVICE_NAME)_$(SERVICE_VERSION)_$(ARCH)
+
 dev: stop build
 	docker run -it -v `pwd`:/outside \
           --name ${SERVICE_NAME} \
