@@ -22,6 +22,8 @@ check-syft:
 	syft $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) > syft-output
 	cat syft-output
 
+# add SBOM for the source code 
+
 check-grype:
 	grype $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) > grype-output
 	cat grype-output
@@ -34,6 +36,9 @@ sbom-policy-gen:
 
 publish-service-policy:
 	hzn exchange service addpolicy -f service.policy.json $(HZN_ORG_ID)/$(SERVICE_NAME)_$(SERVICE_VERSION)_$(ARCH)
+
+publish-deployment-policy:
+	hzn exchange deployment addpolicy -f deployment.policy.json $(HZN_ORG_ID)/policy-$(SERVICE_NAME)_$(SERVICE_VERSION)
 
 dev: stop build
 	docker run -it -v `pwd`:/outside \
@@ -79,5 +84,8 @@ agent-run: agent-stop
 
 agent-stop:
 	@hzn unregister -f
+
+deploy-check:
+	@hzn deploycheck all -t device -B deployment.policy.json --service-pol=service.policy.json --node-pol=node.policy.json
 
 .PHONY: build dev run push publish-service publish-pattern test stop clean agent-run agent-stop

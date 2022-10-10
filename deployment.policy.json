@@ -1,0 +1,21 @@
+{
+  "label": "web-hello-python Deployment Policy",
+  "description": "A Horizon Deployment Policy example to run web-hello-python",
+  "service": {
+    "name": "web-hello-python",
+    "org": "examples",
+    "arch": "*",
+    "serviceVersions": [
+      {
+        "version": "1.0.0",
+        "priority":{}
+      }
+    ]
+  },
+  "properties": [
+  ],
+  "constraints": [
+    "example == web-helloworld-python"
+  ],
+  "userInput": []
+}
