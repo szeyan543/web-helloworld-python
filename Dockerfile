@@ -1,4 +1,7 @@
-FROM python:3-alpine3.12
+FROM python-alpine
+
+# Update pip to use latest version
+RUN pip3 install --upgrade pip
 
 # Grab Flask, the most extremely awesome Python module ever!
 RUN pip3 install Flask
