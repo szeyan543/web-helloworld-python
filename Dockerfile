@@ -1,4 +1,4 @@
-FROM python-alpine
+FROM python:3.10-alpine
 
 # Update pip to use latest version
 RUN pip3 install --upgrade pip
