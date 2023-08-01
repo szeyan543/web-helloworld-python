@@ -5,7 +5,9 @@ SERVICE_NAME ?= web-hello-python
 SERVICE_VERSION ?= 1.0.0
 PATTERN_NAME ?= pattern-web-hello-python
 ARCH ?= amd64
- 
+MATCH ?= "Hello"
+TIME_OUT ?= 30
+
 # Leave blank for open DockerHub containers
 # CONTAINER_CREDS:=-r "registry.wherever.com:myid:mypw"
 CONTAINER_CREDS ?=
@@ -28,8 +30,16 @@ run: stop
           -p 8000:8000 \
           $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION)
 
-test:
-	@curl -sS http://127.0.0.1:8000
+test: run
+	@echo "=================="
+	@echo "Testing $(SERVICE_NAME)..."
+	@echo "=================="
+	./serviceTest.sh $(SERVICE_NAME) $(MATCH) $(TIME_OUT) && \
+		{ docker rm -f ${SERVICE_NAME} >/dev/null; \
+		echo "*** Service test succeeded! ***"; } || \
+		{ docker rm -f ${SERVICE_NAME} >/dev/null; \
+		echo "*** Service test failed! ***"; \
+		false ;}
 
 push:
 	docker push $(DOCKER_HUB_ID)/$(SERVICE_NAME):$(SERVICE_VERSION) 
