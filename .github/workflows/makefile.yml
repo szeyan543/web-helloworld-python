@@ -28,7 +28,7 @@ jobs:
 
     - name: Check Makefile targets
       run: |
-        REQUIRED_TARGETS=("build" "test" "run" "stop" "agent-run" "agent-stop" "publish-service" "publish-pattern" "push")
+        REQUIRED_TARGETS=("build" "test" "run" "stop" "agent-run" "agent-stop" "publish-service" "publish-pattern" "push" "check-syft" "sbom-policy-gen" "publish-service-policy" "publish-deployment-policy")
         for TARGET in "${REQUIRED_TARGETS[@]}"; do
           if ! grep -qE "^$TARGET:" Makefile; then
             echo "Target '$TARGET' not found in Makefile!"
