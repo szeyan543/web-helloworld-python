@@ -25,4 +25,14 @@ jobs:
 
     - name: Run distcheck
       run: make distcheck
+
+    - name: Check Makefile targets
+      run: |
+        REQUIRED_TARGETS=("build" "test" "run" "stop" "agent-run" "agent-stop" "publish-service" "publish-pattern" "push")
+        for TARGET in "${REQUIRED_TARGETS[@]}"; do
+          if ! grep -qE "^$TARGET:" Makefile; then
+            echo "Target '$TARGET' not found in Makefile!"
+            exit 1
+          fi
+        done
     
