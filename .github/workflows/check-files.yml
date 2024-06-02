@@ -1,0 +1,38 @@
+name: Check required files
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  fork:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+    
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check for required files
+      run: |
+        filesToCheck=(
+          "Makefile"
+          "node.policy.json"
+          "deployment.policy.json"
+          "serviceTest.sh"
+          "service.json"
+          "pattern.json"
+        )
+
+        for file in "${filesToCheck[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "Error: $file not found!"
+            exit 1
+          fi
+        done
+
+        echo "All required files are present."
