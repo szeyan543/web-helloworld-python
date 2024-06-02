@@ -21,7 +21,7 @@ jobs:
       run: |
         filesToCheck=(
           "Makefile"
-          "service.policy.json"
+          "node.policy.json"
           "deployment.policy.json"
           "serviceTest.sh"
           "service.json"
