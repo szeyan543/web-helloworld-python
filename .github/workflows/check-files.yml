@@ -20,7 +20,7 @@ jobs:
     - name: Check for required files
       run: |
         filesToCheck=(
-          "makefile"
+          "Makefile"
           "service.policy.json"
           "deployment.policy.json"
           "serviceTest.sh"
