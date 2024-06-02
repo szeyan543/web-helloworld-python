@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   fork:
     branches: [ "main" ]
+  push:
+    branches: [ "main" ]
     
 
 jobs:
