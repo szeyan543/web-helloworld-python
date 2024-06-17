@@ -1,0 +1,31 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: make
+
+
+    - name: Check Makefile targets
+      run: |
+        REQUIRED_TARGETS=("build" "test" "run" "stop" "agent-run" "agent-stop" "publish-service" "publish-pattern" "push" "check-syft" "sbom-policy-gen" "publish-service-policy" "publish-deployment-policy")
+        for TARGET in "${REQUIRED_TARGETS[@]}"; do
+          if ! grep -qE "^$TARGET:" Makefile; then
+            echo "Target '$TARGET' not found in Makefile!"
+            exit 1
+          fi
+        done
+        echo "All Targets found in the Makefile!"
+    
